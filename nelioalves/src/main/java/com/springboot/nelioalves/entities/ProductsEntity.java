@@ -10,12 +10,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "category")
+@Entity(name = "product")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CategoryEntity {
+public class ProductsEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
