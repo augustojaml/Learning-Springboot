@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,7 @@ public class CategoryEntity {
 
   private String name;
 
+  @JsonManagedReference
   @ManyToMany(mappedBy = "categories")
   private List<ProductsEntity> products = new ArrayList<>();
 

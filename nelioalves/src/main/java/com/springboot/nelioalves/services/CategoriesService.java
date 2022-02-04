@@ -1,6 +1,9 @@
 package com.springboot.nelioalves.services;
 
+import java.util.Optional;
+
 import com.springboot.nelioalves.entities.CategoryEntity;
+import com.springboot.nelioalves.exceptions.ServiceObjectNotFoundException;
 import com.springboot.nelioalves.repositories.CategoriesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,9 @@ public class CategoriesService {
   private CategoriesRepository repository;
 
   public CategoryEntity findById(Integer id) {
-    CategoryEntity category = repository.findById(id).orElse(null);
-    return category;
+    Optional<CategoryEntity> object = repository.findById(id);
+    return object.orElseThrow(
+        () -> new ServiceObjectNotFoundException(
+            "Object with identifier " + id + " | Class: " + CategoryEntity.class.getName()));
   }
 }
