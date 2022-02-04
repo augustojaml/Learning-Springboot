@@ -1,26 +1,23 @@
 package com.springboot.nelioalves.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "category")
+@Entity(name = "city")
 @Data
 @NoArgsConstructor
-// @AllArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CategoryEntity {
+public class CityEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +26,7 @@ public class CategoryEntity {
 
   private String name;
 
-  @JsonManagedReference
-  @ManyToMany(mappedBy = "categories")
-  private List<ProductEntity> products = new ArrayList<>();
-
-  public CategoryEntity(Integer id, String name) {
-    this.id = id;
-    this.name = name;
-  }
-
+  @ManyToOne
+  @JoinColumn(name = "state_id")
+  private StateEntity state;
 }

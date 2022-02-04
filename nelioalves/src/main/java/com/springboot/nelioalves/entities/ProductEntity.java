@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 // @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ProductsEntity {
+public class ProductEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class ProductsEntity {
   @JoinTable(name = "products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
   private List<CategoryEntity> categories = new ArrayList<>();
 
-  public ProductsEntity(Integer id, String name, Double price) {
+  public ProductEntity(Integer id, String name, Double price) {
     this.id = id;
     this.name = name;
     this.price = price;
