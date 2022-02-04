@@ -1,6 +1,12 @@
-# Dependências
+# Atualização para Spring 2.X.X
 
-- spring-boot-starter-web
+- User
+
+```java
+categoriesRepository.saveAll(Arrays.asList(cat1, cat2));
+```
+
+# Dependências
 
 ```xml
 <!--
