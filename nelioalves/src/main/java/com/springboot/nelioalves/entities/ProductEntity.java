@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +25,6 @@ import lombok.NoArgsConstructor;
 @Entity(name = "product")
 @Data
 @NoArgsConstructor
-// @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProductEntity implements Serializable {
 
@@ -44,6 +44,7 @@ public class ProductEntity implements Serializable {
   @JoinTable(name = "products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
   private List<CategoryEntity> categories = new ArrayList<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "id.product")
   private Set<ItemPurchaseEntity> items = new HashSet<>();
 
@@ -53,6 +54,7 @@ public class ProductEntity implements Serializable {
     this.price = price;
   }
 
+  @JsonIgnore
   public List<PurchaseEntity> getPurchases() {
     List<PurchaseEntity> list = new ArrayList<PurchaseEntity>();
     for (ItemPurchaseEntity item : items) {

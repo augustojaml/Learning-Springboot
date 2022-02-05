@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ public class ItemPurchaseEntity implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @EqualsAndHashCode.Include
+  @JsonIgnore
   @EmbeddedId
   private ItemPurchasePKEmbeddable id = new ItemPurchasePKEmbeddable();
 
@@ -37,6 +40,7 @@ public class ItemPurchaseEntity implements Serializable {
     Price = price;
   }
 
+  @JsonIgnore
   public PurchaseEntity getPurchase() {
     return id.getPurchase();
   }

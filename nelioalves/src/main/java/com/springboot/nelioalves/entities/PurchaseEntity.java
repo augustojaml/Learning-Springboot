@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -32,11 +35,14 @@ public class PurchaseEntity implements Serializable {
   @EqualsAndHashCode.Include
   private Integer id;
 
+  @JsonFormat(pattern = "dd/MM/yy HH:mm")
   private Date instant;
 
+  @JsonManagedReference
   @OneToOne(cascade = CascadeType.ALL, mappedBy = "purchase")
   private PaymentEntity payment;
 
+  @JsonManagedReference
   @ManyToOne
   @JoinColumn(name = "client_id")
   private ClientEntity client;

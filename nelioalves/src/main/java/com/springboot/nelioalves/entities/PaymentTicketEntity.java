@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
 
 import lombok.Getter;
@@ -16,10 +17,12 @@ public class PaymentTicketEntity extends PaymentEntity {
 
   @Getter
   @Setter
+  @JsonFormat(pattern = "dd/MM/yy")
   private Date expireDate;
 
   @Getter
   @Setter
+  @JsonFormat(pattern = "dd/MM/yy")
   private Date paymentDate;
 
   public PaymentTicketEntity(Integer id, StatePaymentEnum state, PurchaseEntity purchase, Date expireDate,
