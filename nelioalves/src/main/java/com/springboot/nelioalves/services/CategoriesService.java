@@ -3,8 +3,10 @@ package com.springboot.nelioalves.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.springboot.nelioalves.dto.CategoriesDTO;
 import com.springboot.nelioalves.entities.CategoryEntity;
 import com.springboot.nelioalves.exceptions.ServiceDataIntegrityViolationException;
+import com.springboot.nelioalves.exceptions.ServiceIllegalArgumentException;
 import com.springboot.nelioalves.exceptions.ServiceObjectNotFoundException;
 import com.springboot.nelioalves.repositories.CategoriesRepository;
 
@@ -53,7 +55,16 @@ public class CategoriesService {
   }
 
   public Page<CategoryEntity> findPerPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-    PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-    return repository.findAll(pageRequest);
+    try {
+      PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+      return repository.findAll(pageRequest);
+    } catch (Exception ex) {
+      throw new ServiceIllegalArgumentException("Invalid search parameters");
+    }
   }
+
+  public CategoryEntity fromDTO(CategoriesDTO object) {
+    return new CategoryEntity(object.getId(), object.getName());
+  }
+
 }

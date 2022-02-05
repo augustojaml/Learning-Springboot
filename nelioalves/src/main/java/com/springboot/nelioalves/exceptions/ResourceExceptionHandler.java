@@ -24,4 +24,13 @@ public class ResourceExceptionHandler {
     StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
   }
+
+  @ExceptionHandler({ ServiceIllegalArgumentException.class })
+  public ResponseEntity<StandardError> illegalArgument(ServiceIllegalArgumentException ex,
+      HttpServletRequest request) {
+
+    StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+  }
+
 }

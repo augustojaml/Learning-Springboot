@@ -17,3 +17,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm")
 ```java
 PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction));
 ```
+
+- Atualização 4
+
+```java
+import javax.validation.constraints.NotEmpty
+```
