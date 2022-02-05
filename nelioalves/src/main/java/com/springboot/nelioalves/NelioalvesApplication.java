@@ -7,6 +7,7 @@ import com.springboot.nelioalves.entities.AddressEntity;
 import com.springboot.nelioalves.entities.CategoryEntity;
 import com.springboot.nelioalves.entities.CityEntity;
 import com.springboot.nelioalves.entities.ClientEntity;
+import com.springboot.nelioalves.entities.ItemPurchaseEntity;
 import com.springboot.nelioalves.entities.PaymentCardEntity;
 import com.springboot.nelioalves.entities.PaymentEntity;
 import com.springboot.nelioalves.entities.PaymentTicketEntity;
@@ -19,6 +20,7 @@ import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.repositories.CategoriesRepository;
 import com.springboot.nelioalves.repositories.CitiesRepository;
 import com.springboot.nelioalves.repositories.ClientsRepository;
+import com.springboot.nelioalves.repositories.ItemPurchaseRepository;
 import com.springboot.nelioalves.repositories.PaymentsRepository;
 import com.springboot.nelioalves.repositories.ProductsRepository;
 import com.springboot.nelioalves.repositories.PurchasesRepository;
@@ -55,6 +57,9 @@ public class NelioalvesApplication implements CommandLineRunner {
 
 	@Autowired
 	private PaymentsRepository paymentsRepository;
+
+	@Autowired
+	private ItemPurchaseRepository itemPurchaseRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(NelioalvesApplication.class, args);
@@ -133,6 +138,19 @@ public class NelioalvesApplication implements CommandLineRunner {
 
 		purchasesRepository.saveAll(Arrays.asList(ped1, ped2));
 		paymentsRepository.saveAll(Arrays.asList(pgto1, pgto1));
+
+		ItemPurchaseEntity ip1 = new ItemPurchaseEntity(ped1, p1, 0.00, 1, 2000.00);
+		ItemPurchaseEntity ip2 = new ItemPurchaseEntity(ped1, p3, 0.00, 2, 80.00);
+		ItemPurchaseEntity ip3 = new ItemPurchaseEntity(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItems().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItems().addAll(Arrays.asList(ip3));
+
+		p1.getItems().addAll(Arrays.asList(ip1));
+		p2.getItems().addAll(Arrays.asList(ip3));
+		p1.getItems().addAll(Arrays.asList(ip2));
+
+		itemPurchaseRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 

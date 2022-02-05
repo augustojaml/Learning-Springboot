@@ -1,5 +1,6 @@
 package com.springboot.nelioalves.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,9 @@ import lombok.Setter;
 @Entity(name = "client")
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ClientEntity {
+public class ClientEntity implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Setter

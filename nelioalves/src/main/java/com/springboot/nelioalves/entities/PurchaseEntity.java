@@ -1,6 +1,9 @@
 package com.springboot.nelioalves.entities;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -19,7 +23,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PurchaseEntity {
+public class PurchaseEntity implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +44,9 @@ public class PurchaseEntity {
   @ManyToOne
   @JoinColumn(name = "shipping_address_id")
   private AddressEntity shippingAddress;
+
+  @OneToMany(mappedBy = "id.purchase")
+  private Set<ItemPurchaseEntity> items = new HashSet<>();
 
   public PurchaseEntity(Integer id, Date instant, ClientEntity client, AddressEntity shippingAddress) {
     this.id = id;

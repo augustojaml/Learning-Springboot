@@ -1,5 +1,6 @@
 package com.springboot.nelioalves.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 // @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class CategoryEntity {
+public class CategoryEntity implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

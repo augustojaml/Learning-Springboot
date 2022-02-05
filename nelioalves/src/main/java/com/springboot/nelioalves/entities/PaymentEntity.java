@@ -1,5 +1,7 @@
 package com.springboot.nelioalves.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -19,7 +21,9 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public abstract class PaymentEntity {
+public abstract class PaymentEntity implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @Setter
