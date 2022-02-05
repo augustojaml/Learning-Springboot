@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.nelioalves.entities.enums.TypeClient;
 
 import lombok.EqualsAndHashCode;
@@ -49,7 +50,8 @@ public class ClientEntity {
   @Getter
   @Setter
   @OneToMany(mappedBy = "client")
-  private List<AddressEntity> address = new ArrayList<>();
+  @JsonManagedReference
+  private List<AddressEntity> addresses = new ArrayList<>();
 
   @Getter
   @Setter

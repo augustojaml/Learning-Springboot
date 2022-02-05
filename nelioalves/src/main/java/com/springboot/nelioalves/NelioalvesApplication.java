@@ -98,7 +98,7 @@ public class NelioalvesApplication implements CommandLineRunner {
 		AddressEntity e1 = new AddressEntity(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
 		AddressEntity e2 = new AddressEntity(null, "AVenida Matos", "105", "Salva 800", "Centro", "3877701", cli1, c2);
 
-		cli1.getAddress().addAll(Arrays.asList(e1, e2));
+		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
 
 		clientsRepository.saveAll(Arrays.asList(cli1));
 		addressesRepository.saveAll(Arrays.asList(e1, e2));

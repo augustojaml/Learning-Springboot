@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class StateEntity {
 
   private String name;
 
+  @JsonBackReference
   @OneToMany(mappedBy = "state")
   private List<CityEntity> cities = new ArrayList<>();
 

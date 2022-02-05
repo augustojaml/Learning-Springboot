@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,6 +38,7 @@ public class AddressEntity {
 
   @ManyToOne
   @JoinColumn(name = "client_id")
+  @JsonBackReference
   private ClientEntity client;
 
   @ManyToOne
