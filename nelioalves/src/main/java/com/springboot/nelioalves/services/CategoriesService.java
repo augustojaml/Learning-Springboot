@@ -26,4 +26,9 @@ public class CategoriesService {
     object.setId(null);
     return repository.save(object);
   }
+
+  public CategoryEntity update(CategoryEntity object) {
+    this.findById(object.getId());
+    return repository.save(object);
+  }
 }

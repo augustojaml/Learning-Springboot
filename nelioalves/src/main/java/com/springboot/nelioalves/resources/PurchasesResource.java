@@ -18,7 +18,7 @@ public class PurchasesResource {
   private PurchasesService service;
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> findById(@PathVariable Integer id) {
+  public ResponseEntity<PurchaseEntity> findById(@PathVariable Integer id) {
     PurchaseEntity object = service.findById(id);
     return ResponseEntity.ok().body(object);
   }

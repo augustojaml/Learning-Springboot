@@ -22,16 +22,23 @@ public class CategoriesResource {
   private CategoriesService service;
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ResponseEntity<?> findById(@PathVariable Integer id) {
+  public ResponseEntity<CategoryEntity> findById(@PathVariable Integer id) {
     CategoryEntity object = service.findById(id);
     return ResponseEntity.ok().body(object);
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> create(@RequestBody CategoryEntity object) {
+  public ResponseEntity<Void> insert(@RequestBody CategoryEntity object) {
     object = service.insert(object);
     URI uri = this.toURI(object);
     return ResponseEntity.created(uri).build();
+  }
+
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  public ResponseEntity<Void> update(@RequestBody CategoryEntity object, @PathVariable Integer id) {
+    object.setId(id);
+    object = service.update(object);
+    return ResponseEntity.noContent().build();
   }
 
   private URI toURI(CategoryEntity object) {
