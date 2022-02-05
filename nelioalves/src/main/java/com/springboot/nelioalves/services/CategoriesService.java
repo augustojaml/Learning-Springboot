@@ -3,10 +3,12 @@ package com.springboot.nelioalves.services;
 import java.util.Optional;
 
 import com.springboot.nelioalves.entities.CategoryEntity;
+import com.springboot.nelioalves.exceptions.ServiceDataIntegrityViolationException;
 import com.springboot.nelioalves.exceptions.ServiceObjectNotFoundException;
 import com.springboot.nelioalves.repositories.CategoriesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +32,15 @@ public class CategoriesService {
   public CategoryEntity update(CategoryEntity object) {
     this.findById(object.getId());
     return repository.save(object);
+  }
+
+  public void delete(Integer id) {
+    this.findById(id);
+    try {
+      repository.deleteById(id);
+    } catch (DataIntegrityViolationException ex) {
+      throw new ServiceDataIntegrityViolationException("Cannot delete category with products");
+    }
+
   }
 }
