@@ -11,3 +11,9 @@ categoriesRepository.saveAll(Arrays.asList(cat1, cat2));
 ```java
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm")
 ```
+
+- Atualização 3
+
+```java
+PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction));
+```

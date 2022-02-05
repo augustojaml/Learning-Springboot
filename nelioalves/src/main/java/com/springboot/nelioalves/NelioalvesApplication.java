@@ -71,6 +71,11 @@ public class NelioalvesApplication implements CommandLineRunner {
 		// CATEGORIES
 		CategoryEntity cat1 = new CategoryEntity(null, "Informática");
 		CategoryEntity cat2 = new CategoryEntity(null, "Escritório");
+		CategoryEntity cat3 = new CategoryEntity(null, "Cama mesa e banho");
+		CategoryEntity cat4 = new CategoryEntity(null, "Eletrônicos");
+		CategoryEntity cat5 = new CategoryEntity(null, "Jardinagem");
+		CategoryEntity cat6 = new CategoryEntity(null, "Decoração");
+		CategoryEntity cat7 = new CategoryEntity(null, "Perfumaria");
 
 		// PRODUCTS
 		ProductEntity p1 = new ProductEntity(null, "Computador", 2000.00);
@@ -87,7 +92,7 @@ public class NelioalvesApplication implements CommandLineRunner {
 		p3.getCategories().addAll(Arrays.asList(cat1));
 
 		// INSERT CATEGORIES
-		categoriesRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriesRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		// INSERT CATEGORIES
 		productsRepository.saveAll(Arrays.asList(p1, p2, p3));
 
