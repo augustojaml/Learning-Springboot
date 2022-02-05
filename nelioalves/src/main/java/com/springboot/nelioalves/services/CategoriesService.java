@@ -36,8 +36,9 @@ public class CategoriesService {
   }
 
   public CategoryEntity update(CategoryEntity object) {
-    this.findById(object.getId());
-    return repository.save(object);
+    CategoryEntity newObject = findById(object.getId());
+    this.updateDate(newObject, object);
+    return repository.save(newObject);
   }
 
   public void delete(Integer id) {
@@ -65,6 +66,10 @@ public class CategoriesService {
 
   public CategoryEntity fromDTO(CategoriesDTO object) {
     return new CategoryEntity(object.getId(), object.getName());
+  }
+
+  private void updateDate(CategoryEntity newObject, CategoryEntity object) {
+    newObject.setName(object.getName());
   }
 
 }
