@@ -42,6 +42,14 @@ public class CategoriesResource {
     return ResponseEntity.ok().body(objectsDTO);
   }
 
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<Void> insert(@Valid @RequestBody CategoriesDTO objectDTO) {
+    CategoryEntity object = service.fromDTO(objectDTO);
+    object = service.insert(object);
+    URI uri = this.toURI(object);
+    return ResponseEntity.created(uri).build();
+  }
+
   @RequestMapping(value = "/page", method = RequestMethod.GET)
   public ResponseEntity<Page<CategoriesDTO>> findPage(
       @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -51,14 +59,6 @@ public class CategoriesResource {
     Page<CategoryEntity> objects = service.findPerPage(page, linesPerPage, orderBy, direction);
     Page<CategoriesDTO> objectsDTO = objects.map(obj -> new CategoriesDTO(obj));
     return ResponseEntity.ok().body(objectsDTO);
-  }
-
-  @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@Valid @RequestBody CategoriesDTO objectDTO) {
-    CategoryEntity object = service.fromDTO(objectDTO);
-    object = service.insert(object);
-    URI uri = this.toURI(object);
-    return ResponseEntity.created(uri).build();
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

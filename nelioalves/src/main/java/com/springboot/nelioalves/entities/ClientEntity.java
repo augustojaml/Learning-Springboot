@@ -38,7 +38,7 @@ public class ClientEntity implements Serializable {
 
   @Getter
   @Setter
-  private String nome;
+  private String name;
 
   @Getter
   @Setter
@@ -67,12 +67,12 @@ public class ClientEntity implements Serializable {
   @OneToMany(mappedBy = "client")
   private List<PurchaseEntity> purchases = new ArrayList<>();
 
-  public ClientEntity(Integer id, String nome, String email, String CpfOrCnpj, TypeClientEnum type) {
+  public ClientEntity(Integer id, String name, String email, String CpfOrCnpj, TypeClientEnum type) {
     this.id = id;
-    this.nome = nome;
+    this.name = name;
     this.email = email;
     this.CpfOrCnpj = CpfOrCnpj;
-    this.type = type.getCode();
+    this.type = (type == null) ? null : type.getCode();
   }
 
   public TypeClientEnum getType() {
