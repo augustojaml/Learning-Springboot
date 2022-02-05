@@ -1,5 +1,6 @@
 package com.springboot.nelioalves.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.springboot.nelioalves.entities.CategoryEntity;
@@ -42,5 +43,9 @@ public class CategoriesService {
       throw new ServiceDataIntegrityViolationException("Cannot delete category with products");
     }
 
+  }
+
+  public List<CategoryEntity> findAll() {
+    return repository.findAll();
   }
 }

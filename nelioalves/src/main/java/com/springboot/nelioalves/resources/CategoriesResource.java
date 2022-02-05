@@ -1,7 +1,10 @@
 package com.springboot.nelioalves.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import com.springboot.nelioalves.dto.CategoriesDTO;
 import com.springboot.nelioalves.entities.CategoryEntity;
 import com.springboot.nelioalves.services.CategoriesService;
 
@@ -25,6 +28,14 @@ public class CategoriesResource {
   public ResponseEntity<CategoryEntity> findById(@PathVariable Integer id) {
     CategoryEntity object = service.findById(id);
     return ResponseEntity.ok().body(object);
+  }
+
+  @RequestMapping(method = RequestMethod.GET)
+  public ResponseEntity<List<CategoriesDTO>> findAll() {
+    List<CategoryEntity> objects = service.findAll();
+    List<CategoriesDTO> objectsDTO = objects.stream().map(object -> new CategoriesDTO(object))
+        .collect(Collectors.toList());
+    return ResponseEntity.ok().body(objectsDTO);
   }
 
   @RequestMapping(method = RequestMethod.POST)
