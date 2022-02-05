@@ -2,12 +2,17 @@ package com.springboot.nelioalves;
 
 import java.util.Arrays;
 
+import com.springboot.nelioalves.entities.AddressEntity;
 import com.springboot.nelioalves.entities.CategoryEntity;
 import com.springboot.nelioalves.entities.CityEntity;
+import com.springboot.nelioalves.entities.ClientEntity;
 import com.springboot.nelioalves.entities.ProductEntity;
 import com.springboot.nelioalves.entities.StateEntity;
+import com.springboot.nelioalves.entities.enums.TypeClient;
+import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.repositories.CategoriesRepository;
 import com.springboot.nelioalves.repositories.CitiesRepository;
+import com.springboot.nelioalves.repositories.ClientsRepository;
 import com.springboot.nelioalves.repositories.ProductsRepository;
 import com.springboot.nelioalves.repositories.StatesRepository;
 
@@ -30,6 +35,12 @@ public class NelioalvesApplication implements CommandLineRunner {
 
 	@Autowired
 	private CitiesRepository citiesRepository;
+
+	@Autowired
+	private AddressesRepository addressesRepository;
+
+	@Autowired
+	private ClientsRepository clientsRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(NelioalvesApplication.class, args);
@@ -78,6 +89,19 @@ public class NelioalvesApplication implements CommandLineRunner {
 		statesRepository.saveAll(Arrays.asList(est1, est2));
 		// INSERT CATEGORIES
 		citiesRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+		ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "maria@gmail.com", "11111111111",
+				TypeClient.NATURALPERSON);
+
+		cli1.getPhones().addAll(Arrays.asList("11110000", "22220000"));
+
+		AddressEntity e1 = new AddressEntity(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		AddressEntity e2 = new AddressEntity(null, "AVenida Matos", "105", "Salva 800", "Centro", "3877701", cli1, c2);
+
+		cli1.getAddress().addAll(Arrays.asList(e1, e2));
+
+		clientsRepository.saveAll(Arrays.asList(cli1));
+		addressesRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }

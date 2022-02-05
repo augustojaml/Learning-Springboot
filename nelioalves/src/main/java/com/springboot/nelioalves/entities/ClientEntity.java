@@ -5,7 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.springboot.nelioalves.entities.enums.TypeClient;
 
@@ -19,6 +25,8 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ClientEntity {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
   @EqualsAndHashCode.Include
@@ -40,11 +48,14 @@ public class ClientEntity {
 
   @Getter
   @Setter
+  @OneToMany(mappedBy = "client")
   private List<AddressEntity> address = new ArrayList<>();
 
   @Getter
   @Setter
-  private Set<String> phones = new HashSet<String>();
+  @ElementCollection
+  @CollectionTable(name = "phone")
+  private Set<String> phones = new HashSet<>();
 
   public ClientEntity(Integer id, String nome, String email, String CpfOrCnpj, TypeClient type) {
     this.id = id;
