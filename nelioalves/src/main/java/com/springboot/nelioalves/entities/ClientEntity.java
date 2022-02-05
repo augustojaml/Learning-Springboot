@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.springboot.nelioalves.entities.enums.TypeClient;
+import com.springboot.nelioalves.entities.enums.TypeClientEnum;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,10 +26,10 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ClientEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
   private Integer id;
 
@@ -59,7 +59,12 @@ public class ClientEntity {
   @CollectionTable(name = "phone")
   private Set<String> phones = new HashSet<>();
 
-  public ClientEntity(Integer id, String nome, String email, String CpfOrCnpj, TypeClient type) {
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "client")
+  private List<PurchaseEntity> purchases = new ArrayList<>();
+
+  public ClientEntity(Integer id, String nome, String email, String CpfOrCnpj, TypeClientEnum type) {
     this.id = id;
     this.nome = nome;
     this.email = email;
@@ -67,11 +72,11 @@ public class ClientEntity {
     this.type = type.getCode();
   }
 
-  public TypeClient getType() {
-    return TypeClient.toEnum(type);
+  public TypeClientEnum getType() {
+    return TypeClientEnum.toEnum(type);
   }
 
-  public void setType(TypeClient type) {
+  public void setType(TypeClientEnum type) {
     this.type = type.getCode();
   }
 

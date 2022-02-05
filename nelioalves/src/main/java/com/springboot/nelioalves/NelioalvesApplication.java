@@ -1,19 +1,27 @@
 package com.springboot.nelioalves;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import com.springboot.nelioalves.entities.AddressEntity;
 import com.springboot.nelioalves.entities.CategoryEntity;
 import com.springboot.nelioalves.entities.CityEntity;
 import com.springboot.nelioalves.entities.ClientEntity;
+import com.springboot.nelioalves.entities.PaymentCardEntity;
+import com.springboot.nelioalves.entities.PaymentEntity;
+import com.springboot.nelioalves.entities.PaymentTicketEntity;
 import com.springboot.nelioalves.entities.ProductEntity;
+import com.springboot.nelioalves.entities.PurchaseEntity;
 import com.springboot.nelioalves.entities.StateEntity;
-import com.springboot.nelioalves.entities.enums.TypeClient;
+import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
+import com.springboot.nelioalves.entities.enums.TypeClientEnum;
 import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.repositories.CategoriesRepository;
 import com.springboot.nelioalves.repositories.CitiesRepository;
 import com.springboot.nelioalves.repositories.ClientsRepository;
+import com.springboot.nelioalves.repositories.PaymentsRepository;
 import com.springboot.nelioalves.repositories.ProductsRepository;
+import com.springboot.nelioalves.repositories.PurchasesRepository;
 import com.springboot.nelioalves.repositories.StatesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +49,12 @@ public class NelioalvesApplication implements CommandLineRunner {
 
 	@Autowired
 	private ClientsRepository clientsRepository;
+
+	@Autowired
+	private PurchasesRepository purchasesRepository;
+
+	@Autowired
+	private PaymentsRepository paymentsRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(NelioalvesApplication.class, args);
@@ -91,7 +105,7 @@ public class NelioalvesApplication implements CommandLineRunner {
 		citiesRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 		ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "maria@gmail.com", "11111111111",
-				TypeClient.NATURALPERSON);
+				TypeClientEnum.NATURALPERSON);
 
 		cli1.getPhones().addAll(Arrays.asList("11110000", "22220000"));
 
@@ -102,6 +116,24 @@ public class NelioalvesApplication implements CommandLineRunner {
 
 		clientsRepository.saveAll(Arrays.asList(cli1));
 		addressesRepository.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		PurchaseEntity ped1 = new PurchaseEntity(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		PurchaseEntity ped2 = new PurchaseEntity(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+
+		PaymentEntity pgto1 = new PaymentCardEntity(null, StatePaymentEnum.LIQUIDATED, ped1, 6);
+		ped1.setPayment(pgto1);
+
+		PaymentEntity pgto2 = new PaymentTicketEntity(null, StatePaymentEnum.PENDING, ped2, sdf.parse("30/09/2017 00:00"),
+				null);
+		ped2.setPayment(pgto2);
+
+		cli1.getPurchases().addAll(Arrays.asList(ped1, ped2));
+
+		purchasesRepository.saveAll(Arrays.asList(ped1, ped2));
+		paymentsRepository.saveAll(Arrays.asList(pgto1, pgto1));
+
 	}
 
 }

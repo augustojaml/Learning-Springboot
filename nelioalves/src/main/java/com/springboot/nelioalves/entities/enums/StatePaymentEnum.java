@@ -1,13 +1,14 @@
 package com.springboot.nelioalves.entities.enums;
 
-public enum TypeClient {
-  NATURALPERSON(1, "NATURAL PERSON"),
-  LEGALPERSON(2, "LEGAL PERSON");
+public enum StatePaymentEnum {
+  PENDING(1, "Pending"),
+  LIQUIDATED(2, "Liquidated"),
+  CANCELED(3, "Canceled");
 
   private int code;
   private String description;
 
-  private TypeClient(int code, String description) {
+  private StatePaymentEnum(int code, String description) {
     this.code = code;
     this.description = description;
   }
@@ -20,12 +21,12 @@ public enum TypeClient {
     return this.description;
   }
 
-  public static TypeClient toEnum(Integer code) {
+  public static StatePaymentEnum toEnum(Integer code) {
     if (code == null) {
       return null;
     }
 
-    for (TypeClient type : TypeClient.values()) {
+    for (StatePaymentEnum type : StatePaymentEnum.values()) {
       if (code.equals(type.getCode())) {
         return type;
       }
