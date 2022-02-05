@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -39,7 +38,7 @@ public class ProductEntity implements Serializable {
 
   private Double price;
 
-  @JsonBackReference
+  @JsonIgnore
   @ManyToMany
   @JoinTable(name = "products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
   private List<CategoryEntity> categories = new ArrayList<>();

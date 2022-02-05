@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.nelioalves.entities.enums.TypeClientEnum;
 
 import lombok.EqualsAndHashCode;
@@ -54,7 +53,6 @@ public class ClientEntity implements Serializable {
   @Getter
   @Setter
   @OneToMany(mappedBy = "client")
-  @JsonManagedReference
   private List<AddressEntity> addresses = new ArrayList<>();
 
   @Getter
@@ -65,7 +63,7 @@ public class ClientEntity implements Serializable {
 
   @Getter
   @Setter
-  @JsonBackReference
+  @JsonIgnore
   @OneToMany(mappedBy = "client")
   private List<PurchaseEntity> purchases = new ArrayList<>();
 

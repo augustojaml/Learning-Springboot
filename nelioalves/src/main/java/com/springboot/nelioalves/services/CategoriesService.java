@@ -21,4 +21,9 @@ public class CategoriesService {
         () -> new ServiceObjectNotFoundException(
             "Object with identifier " + id + " | Class: " + CategoryEntity.class.getName()));
   }
+
+  public CategoryEntity insert(CategoryEntity object) {
+    object.setId(null);
+    return repository.save(object);
+  }
 }

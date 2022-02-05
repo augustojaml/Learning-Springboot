@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
 
 import lombok.EqualsAndHashCode;
@@ -36,7 +36,7 @@ public abstract class PaymentEntity implements Serializable {
 
   @Getter
   @Setter
-  @JsonBackReference
+  @JsonIgnore
   @OneToOne
   @JoinColumn(name = "purchase_id")
   @MapsId

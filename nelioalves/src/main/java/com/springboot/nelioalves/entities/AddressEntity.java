@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,7 +42,7 @@ public class AddressEntity implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "client_id")
-  @JsonBackReference
+  @JsonIgnore
   private ClientEntity client;
 
   @ManyToOne
