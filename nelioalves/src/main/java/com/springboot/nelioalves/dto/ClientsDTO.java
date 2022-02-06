@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.springboot.nelioalves.entities.ClientEntity;
+import com.springboot.nelioalves.validation.ClientsUpdate;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@ClientsUpdate
 public class ClientsDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
