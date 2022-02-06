@@ -28,7 +28,7 @@ public class ItemPurchaseEntity implements Serializable {
 
   private Integer quantity;
 
-  private Double Price;
+  private Double price;
 
   public ItemPurchaseEntity(PurchaseEntity purchase, ProductEntity product, Double discount, Integer quantity,
       Double price) {
@@ -37,7 +37,11 @@ public class ItemPurchaseEntity implements Serializable {
     id.setProduct(product);
     this.discount = discount;
     this.quantity = quantity;
-    Price = price;
+    this.price = price;
+  }
+
+  public double getSubTotal() {
+    return (this.price - this.discount) * quantity;
   }
 
   @JsonIgnore

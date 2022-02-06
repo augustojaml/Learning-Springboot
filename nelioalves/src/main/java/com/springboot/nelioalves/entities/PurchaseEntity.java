@@ -57,4 +57,13 @@ public class PurchaseEntity implements Serializable {
     this.shippingAddress = shippingAddress;
   }
 
+  public double getValueTotal() {
+    double sum = 0;
+    for (ItemPurchaseEntity item : items) {
+      sum = sum + item.getSubTotal();
+    }
+    return sum;
+
+  }
+
 }
