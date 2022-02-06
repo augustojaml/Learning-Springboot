@@ -1,12 +1,15 @@
 package com.springboot.nelioalves.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import com.springboot.nelioalves.dto.ClientsDTO;
+import com.springboot.nelioalves.dto.ClientsNewDTO;
 import com.springboot.nelioalves.entities.ClientEntity;
+import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.services.ClientsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -51,6 +55,15 @@ public class ClientsResource {
     return ResponseEntity.ok().body(objectsDTO);
   }
 
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<Void> insert(@Valid @RequestBody ClientsNewDTO objectDTO) {
+    System.out.println(objectDTO);
+    ClientEntity object = service.fromDTO(objectDTO);
+    object = service.insert(object);
+    URI uri = this.toURI(object);
+    return ResponseEntity.created(uri).build();
+  }
+
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<Void> update(@Valid @RequestBody ClientsDTO objectDTO, @PathVariable Integer id) {
     ClientEntity object = service.fromDTO(objectDTO);
@@ -65,10 +78,10 @@ public class ClientsResource {
     return ResponseEntity.noContent().build();
   }
 
-  // private URI toURI(ClientEntity object) {
-  // URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-  // .path("/{id}").buildAndExpand(object.getId()).toUri();
-  // return uri;
-  // }
+  private URI toURI(ClientEntity object) {
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+        .path("/{id}").buildAndExpand(object.getId()).toUri();
+    return uri;
+  }
 
 }

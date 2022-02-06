@@ -44,7 +44,7 @@ public abstract class PaymentEntity implements Serializable {
 
   public PaymentEntity(Integer id, StatePaymentEnum state, PurchaseEntity purchase) {
     this.id = id;
-    this.state = state.getCode();
+    this.state = (state == null) ? null : state.getCode();
     this.purchase = purchase;
   }
 

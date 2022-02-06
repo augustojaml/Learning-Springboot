@@ -3,11 +3,18 @@ package com.springboot.nelioalves.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.springboot.nelioalves.dto.ClientsDTO;
+import com.springboot.nelioalves.dto.ClientsNewDTO;
+import com.springboot.nelioalves.entities.AddressEntity;
+import com.springboot.nelioalves.entities.CityEntity;
 import com.springboot.nelioalves.entities.ClientEntity;
+import com.springboot.nelioalves.entities.enums.TypeClientEnum;
 import com.springboot.nelioalves.exceptions.ServiceDataIntegrityViolationException;
 import com.springboot.nelioalves.exceptions.ServiceIllegalArgumentException;
 import com.springboot.nelioalves.exceptions.ServiceObjectNotFoundException;
+import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.repositories.ClientsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +30,9 @@ public class ClientsService {
   @Autowired
   private ClientsRepository repository;
 
+  @Autowired
+  private AddressesRepository addressesRepository;
+
   public ClientEntity findById(Integer id) {
     Optional<ClientEntity> object = repository.findById(id);
     return object.orElseThrow(
@@ -32,6 +42,8 @@ public class ClientsService {
 
   public ClientEntity insert(ClientEntity object) {
     object.setId(null);
+    object = repository.save(object);
+    addressesRepository.saveAll(object.getAddresses());
     return repository.save(object);
   }
 
@@ -71,5 +83,26 @@ public class ClientsService {
   private void updateDate(ClientEntity newObject, ClientEntity object) {
     newObject.setName(object.getName());
     newObject.setEmail(object.getEmail());
+  }
+
+  public ClientEntity fromDTO(@Valid ClientsNewDTO objectDTO) {
+    ClientEntity clientEntity = new ClientEntity(null, objectDTO.getName(), objectDTO.getEmail(),
+        objectDTO.getCpfOrCnpj(), TypeClientEnum.toEnum(objectDTO.getType()));
+
+    CityEntity cityEntity = new CityEntity(objectDTO.getType(), null, null);
+
+    AddressEntity addressEntity = new AddressEntity(null, objectDTO.getNeighborhood(), objectDTO.getNumber(),
+        objectDTO.getComplement(), objectDTO.getDistrict(), objectDTO.getZipCode(), clientEntity, cityEntity);
+
+    clientEntity.getAddresses().add(addressEntity);
+    clientEntity.getPhones().add(objectDTO.getPhone1());
+
+    if (objectDTO.getPhone2() != null) {
+      clientEntity.getPhones().add(objectDTO.getPhone2());
+    }
+    if (objectDTO.getPhone3() != null) {
+      clientEntity.getPhones().add(objectDTO.getPhone3());
+    }
+    return clientEntity;
   }
 }
