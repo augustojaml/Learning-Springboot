@@ -86,4 +86,12 @@ H2 é um banco de dados relacional escrito em Java. Ele pode ser integrado em ap
   <artifactId>h2</artifactId>
   <scope>runtime</scope>
 </dependency>
+
+<!--
+É uma especificação que permite validar objetos com facilidade em diferentes camadas da aplicação. A vantagem de usar Bean Validation é que as restrições ficam inseridas nas classes de modelo.
+-->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
 ```
