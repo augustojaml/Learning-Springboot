@@ -94,4 +94,14 @@ H2 é um banco de dados relacional escrito em Java. Ele pode ser integrado em ap
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
+
+<!--
+O Connector/J é um driver JDBC do tipo IV e contém todas as características de JDBC para utilizar MySQL
+-->
+
+<dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+  <scope>runtime</scope>
+</dependency>
 ```
