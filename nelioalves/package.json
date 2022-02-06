@@ -1,0 +1,14 @@
+{
+  "name": "nelioalves",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "augustojaml <jamonteirolima@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "categoryId": "curl --request GET --url http://localhost:8080/categories/1",
+    "mysqldump": "mysqldump -u root -p -h 0.0.0.0 db_nelioalves > db_nelioalves.sql"
+  },
+  "dependencies": {
+    "nps": "^5.10.0"
+  }
+}

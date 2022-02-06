@@ -1,8 +1,11 @@
 package com.springboot.nelioalves.entities;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -63,7 +66,34 @@ public class PurchaseEntity implements Serializable {
       sum = sum + item.getSubTotal();
     }
     return sum;
-
   }
 
+  @Override
+  public String toString() {
+
+    NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+    StringBuilder builder = new StringBuilder();
+    builder.append("\n================================================================================\n");
+    builder.append("Purchase Number: ");
+    builder.append(getId());
+    builder.append(", Instant: ");
+    builder.append(sdf.format(getInstant()));
+    builder.append(", Client: ");
+    builder.append(getClient().getName());
+    builder.append(", State of payment: ");
+    builder.append(getPayment().getState().getDescription());
+    builder.append("\nDetails \n");
+
+    for (ItemPurchaseEntity item : getItems()) {
+      builder.append(item.toString());
+    }
+
+    builder.append("Value Total ");
+    builder.append(nf.format(getValueTotal()));
+    builder.append("\n================================================================================\n");
+
+    return builder.toString();
+  }
 }

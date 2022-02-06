@@ -65,6 +65,7 @@ public class PurchasesService {
     }
 
     itemPurchaseRepository.saveAll(object.getItems());
+    System.out.println(object.toString());
     return object;
   }
 }
