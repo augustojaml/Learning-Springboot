@@ -3,6 +3,8 @@ package com.springboot.nelioalves.config;
 import java.text.ParseException;
 
 import com.springboot.nelioalves.services.DBService;
+import com.springboot.nelioalves.services.EmailsService;
+import com.springboot.nelioalves.services.SMTPEmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,5 +30,10 @@ public class DevConfig {
 
     dbService.instantiateDatabase();
     return true;
+  }
+
+  @Bean
+  public EmailsService emailsService() {
+    return new SMTPEmailService();
   }
 }

@@ -129,7 +129,7 @@ public class DBService {
     citiesRepository.saveAll(Arrays.asList(c1, c2, c3));
 
     // CLIENTS
-    ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "maria@gmail.com", "11111111111",
+    ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "brawziin@gmail.com", "11111111111",
         TypeClientEnum.NATURALPERSON);
 
     // ADD PHONE CLIENT
