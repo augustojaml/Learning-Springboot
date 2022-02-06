@@ -1,3 +1,9 @@
+# Database
+
+- CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+- web: java -Dserver.port=$PORT -Dspring.profiles.active=prod $JAVA_OPTS -jar target/nelioalves-0.0.1-SNAPSHOT.jar
+
 # Atualização para Spring 2.X.X
 
 - Atualização 1
