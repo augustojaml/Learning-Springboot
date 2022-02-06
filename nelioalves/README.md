@@ -23,3 +23,11 @@ PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(d
 ```java
 import javax.validation.constraints.NotEmpty
 ```
+
+- Atualização 5
+
+```java
+List<Category> categories = categoriesRepository.findAllById(ids);
+```
+
+- [Spring Data](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods)
