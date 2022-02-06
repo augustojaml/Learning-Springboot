@@ -2,6 +2,7 @@ package com.springboot.nelioalves.entities;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
 
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 @Entity(name = "payment_card")
 @NoArgsConstructor
+@JsonTypeName("payment_card")
 public class PaymentCardEntity extends PaymentEntity {
 
   @Getter

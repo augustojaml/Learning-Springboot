@@ -49,8 +49,16 @@ public class ItemPurchaseEntity implements Serializable {
     return id.getPurchase();
   }
 
+  public void setPurchase(PurchaseEntity purchase) {
+    this.id.setPurchase(purchase);
+  }
+
   public ProductEntity getProduct() {
     return id.getProduct();
+  }
+
+  public void setProduct(ProductEntity product) {
+    this.id.setProduct(product);
   }
 
 }

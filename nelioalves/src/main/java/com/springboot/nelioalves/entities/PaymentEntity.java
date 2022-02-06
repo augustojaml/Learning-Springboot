@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
 
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class PaymentEntity implements Serializable {
 
   private static final long serialVersionUID = 1L;
