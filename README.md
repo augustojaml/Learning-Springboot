@@ -104,4 +104,13 @@ O Connector/J é um driver JDBC do tipo IV e contém todas as características d
   <artifactId>mysql-connector-java</artifactId>
   <scope>runtime</scope>
 </dependency>
+
+<!--
+O Spring Framework fornece uma abstração fácil para enviar e-mail usando a interface JavaMailSender, e o Spring Boot fornece configuração automática para ele, bem como um módulo inicial. Dica. Consulte a documentação de referência para obter uma explicação detalhada de como você pode usar o JavaMailSender.
+  -->
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
 ```
