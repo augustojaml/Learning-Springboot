@@ -48,6 +48,14 @@ public class ResourceExceptionHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
   }
 
-  // MethodArgumentNotValidException
+  @ExceptionHandler({ IllegalStateException.class })
+  public ResponseEntity<StandardError> methodArgumentNotValid(IllegalStateException ex,
+      HttpServletRequest request) {
+    ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "field validation error",
+        System.currentTimeMillis());
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+  }
+  // IllegalStateException
 
 }
