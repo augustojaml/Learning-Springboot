@@ -98,7 +98,6 @@ H2 é um banco de dados relacional escrito em Java. Ele pode ser integrado em ap
 <!--
 O Connector/J é um driver JDBC do tipo IV e contém todas as características de JDBC para utilizar MySQL
 -->
-
 <dependency>
   <groupId>mysql</groupId>
   <artifactId>mysql-connector-java</artifactId>
@@ -108,9 +107,16 @@ O Connector/J é um driver JDBC do tipo IV e contém todas as características d
 <!--
 O Spring Framework fornece uma abstração fácil para enviar e-mail usando a interface JavaMailSender, e o Spring Boot fornece configuração automática para ele, bem como um módulo inicial. Dica. Consulte a documentação de referência para obter uma explicação detalhada de como você pode usar o JavaMailSender.
   -->
-
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+
+<!--
+O Thymeleaf é uma template engine para projetos Java que facilita a criação de páginas HTML. Sendo assim, ele serve para gerar páginas HTML no lado servidor de forma dinâmica, permitindo a troca de informações entre o código Java e as página HTML, de tal maneira ele garante que o desenvolvedor consiga criar templates de forma mais fácil para suas aplicações.
+-->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 ```
