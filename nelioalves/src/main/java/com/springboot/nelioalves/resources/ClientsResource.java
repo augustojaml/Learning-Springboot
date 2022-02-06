@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import com.springboot.nelioalves.dto.ClientsDTO;
 import com.springboot.nelioalves.dto.ClientsNewDTO;
 import com.springboot.nelioalves.entities.ClientEntity;
-import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.services.ClientsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
