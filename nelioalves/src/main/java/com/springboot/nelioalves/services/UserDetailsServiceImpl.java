@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     if (client == null) {
       throw new UsernameNotFoundException(email);
     }
-    return new UserServiceSecurity(client.getId(), client.getName(), client.getPassword(), client.getProfiles());
+    return new UserServiceSecurity(client.getId(), client.getEmail(), client.getPassword(), client.getProfiles());
   }
 
 }

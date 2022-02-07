@@ -148,7 +148,7 @@ public class DBService {
     // ADDRESS
     AddressEntity e1 = new AddressEntity(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
     AddressEntity e2 = new AddressEntity(null, "AVenida Matos", "105", "Salva 800", "Centro", "3877701", cli1, c2);
-    AddressEntity e3 = new AddressEntity(null, "Avenida Pau Brasil", "77", "Salva 1706", "Centro", "17061977", cli2,
+    AddressEntity e3 = new AddressEntity(null, "Avenida Pau Brasil", "77", null, "Centro", "17061977", cli2,
         c2);
 
     // ADD ADDRESS CLIENT

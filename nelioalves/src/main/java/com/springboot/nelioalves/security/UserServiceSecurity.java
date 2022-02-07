@@ -18,13 +18,13 @@ public class UserServiceSecurity implements UserDetails {
   private static final long serialVersionUID = 1L;
 
   private Integer id;
-  private String name;
+  private String email;
   private String password;
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserServiceSecurity(Integer id, String name, String password, Set<ProfileEnum> profiles) {
+  public UserServiceSecurity(Integer id, String email, String password, Set<ProfileEnum> profiles) {
     this.id = id;
-    this.name = name;
+    this.email = email;
     this.password = password;
     this.authorities = profiles.stream().map(profile -> new SimpleGrantedAuthority(profile.getDescription()))
         .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class UserServiceSecurity implements UserDetails {
 
   @Override
   public String getUsername() {
-    return name;
+    return email;
   }
 
   @Override

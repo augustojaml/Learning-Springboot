@@ -3,6 +3,7 @@ package com.springboot.nelioalves.config;
 import java.util.Arrays;
 
 import com.springboot.nelioalves.security.JWTAuthenticateFilter;
+import com.springboot.nelioalves.security.JWTAuthorizationFilter;
 import com.springboot.nelioalves.security.JWTUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest().authenticated();
 
     http.addFilter(new JWTAuthenticateFilter(authenticationManager(), jwtUtil));
+
+    http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
