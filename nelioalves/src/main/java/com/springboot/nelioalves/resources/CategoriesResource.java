@@ -13,6 +13,7 @@ import com.springboot.nelioalves.services.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,14 +43,6 @@ public class CategoriesResource {
     return ResponseEntity.ok().body(objectsDTO);
   }
 
-  @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@Valid @RequestBody CategoriesDTO objectDTO) {
-    CategoryEntity object = service.fromDTO(objectDTO);
-    object = service.insert(object);
-    URI uri = this.toURI(object);
-    return ResponseEntity.created(uri).build();
-  }
-
   @RequestMapping(value = "/page", method = RequestMethod.GET)
   public ResponseEntity<Page<CategoriesDTO>> findPage(
       @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -61,6 +54,16 @@ public class CategoriesResource {
     return ResponseEntity.ok().body(objectsDTO);
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<Void> insert(@Valid @RequestBody CategoriesDTO objectDTO) {
+    CategoryEntity object = service.fromDTO(objectDTO);
+    object = service.insert(object);
+    URI uri = this.toURI(object);
+    return ResponseEntity.created(uri).build();
+  }
+
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<Void> update(@Valid @RequestBody CategoriesDTO objectDTO, @PathVariable Integer id) {
     CategoryEntity object = service.fromDTO(objectDTO);
@@ -69,6 +72,7 @@ public class CategoriesResource {
     return ResponseEntity.noContent().build();
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
     service.delete(id);
