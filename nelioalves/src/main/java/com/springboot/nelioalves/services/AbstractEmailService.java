@@ -54,8 +54,8 @@ public abstract class AbstractEmailService implements EmailsService {
       MimeMessage message = prepareMimeMessageFromPurchase(object);
       sendHtmlEmail(message);
     } catch (MessagingException e) {
-      System.out.println(e.getMessage());
-      // sendPurchaseConfirmationEmail(object);
+      // System.out.println(e.getMessage());
+      sendPurchaseConfirmationEmail(object);
     }
   }
 
