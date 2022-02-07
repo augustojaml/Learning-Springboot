@@ -5,26 +5,27 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.springboot.nelioalves.entities.enums.ProfileEnum;
 import com.springboot.nelioalves.entities.enums.TypeClientEnum;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "client")
-@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ClientEntity implements Serializable {
 
@@ -67,11 +68,19 @@ public class ClientEntity implements Serializable {
   @CollectionTable(name = "phone")
   private Set<String> phones = new HashSet<>();
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "profile")
+  private Set<Integer> profiles = new HashSet<>();
+
   @Getter
   @Setter
   @JsonIgnore
   @OneToMany(mappedBy = "client")
   private List<PurchaseEntity> purchases = new ArrayList<>();
+
+  public ClientEntity() {
+    this.addProfile(ProfileEnum.CLIENT);
+  }
 
   public ClientEntity(Integer id, String name, String email, String CpfOrCnpj, TypeClientEnum type, String password) {
     this.id = id;
@@ -80,6 +89,7 @@ public class ClientEntity implements Serializable {
     this.CpfOrCnpj = CpfOrCnpj;
     this.type = (type == null) ? null : type.getCode();
     this.password = password;
+    this.addProfile(ProfileEnum.CLIENT);
   }
 
   public TypeClientEnum getType() {
@@ -88,6 +98,14 @@ public class ClientEntity implements Serializable {
 
   public void setType(TypeClientEnum type) {
     this.type = type.getCode();
+  }
+
+  public Set<ProfileEnum> getProfiles() {
+    return profiles.stream().map(x -> ProfileEnum.toEnum(x)).collect(Collectors.toSet());
+  }
+
+  public void addProfile(ProfileEnum profile) {
+    profiles.add(profile.getCode());
   }
 
 }

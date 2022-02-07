@@ -15,6 +15,7 @@ import com.springboot.nelioalves.entities.PaymentTicketEntity;
 import com.springboot.nelioalves.entities.ProductEntity;
 import com.springboot.nelioalves.entities.PurchaseEntity;
 import com.springboot.nelioalves.entities.StateEntity;
+import com.springboot.nelioalves.entities.enums.ProfileEnum;
 import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
 import com.springboot.nelioalves.entities.enums.TypeClientEnum;
 import com.springboot.nelioalves.repositories.AddressesRepository;
@@ -133,24 +134,32 @@ public class DBService {
     citiesRepository.saveAll(Arrays.asList(c1, c2, c3));
 
     // CLIENTS
-    ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "brawziin@gmail.com", "11111111111",
+    ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "brawziin@gmail.com", "50147663075",
         TypeClientEnum.NATURALPERSON, bCryptPasswordEncoder.encode("123"));
+
+    ClientEntity cli2 = new ClientEntity(null, "Ana Monteiro", "augusto.emmanuel@gmail.com", "04045537023",
+        TypeClientEnum.NATURALPERSON, bCryptPasswordEncoder.encode("123"));
+    cli2.addProfile(ProfileEnum.ADMIN);
 
     // ADD PHONE CLIENT
     cli1.getPhones().addAll(Arrays.asList("11110000", "22220000"));
+    cli2.getPhones().addAll(Arrays.asList("33330000", "44440000"));
 
     // ADDRESS
     AddressEntity e1 = new AddressEntity(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
     AddressEntity e2 = new AddressEntity(null, "AVenida Matos", "105", "Salva 800", "Centro", "3877701", cli1, c2);
+    AddressEntity e3 = new AddressEntity(null, "Avenida Pau Brasil", "77", "Salva 1706", "Centro", "17061977", cli2,
+        c2);
 
     // ADD ADDRESS CLIENT
     cli1.getAddresses().addAll(Arrays.asList(e1, e2));
+    cli2.getAddresses().addAll(Arrays.asList(e3));
 
     // SAVE CLIENT
-    clientsRepository.saveAll(Arrays.asList(cli1));
+    clientsRepository.saveAll(Arrays.asList(cli1, cli2));
 
     // SAVE ADDRESS
-    addressesRepository.saveAll(Arrays.asList(e1, e2));
+    addressesRepository.saveAll(Arrays.asList(e1, e2, e3));
 
     // FORMAT DATE
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
