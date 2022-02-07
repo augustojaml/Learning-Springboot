@@ -69,4 +69,8 @@ public class UserServiceSecurity implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
+  public boolean hasHole(ProfileEnum profile) {
+    return getAuthorities().contains(new SimpleGrantedAuthority(profile.getDescription()));
+  }
 }

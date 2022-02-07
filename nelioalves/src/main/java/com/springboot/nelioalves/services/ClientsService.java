@@ -10,12 +10,15 @@ import com.springboot.nelioalves.dto.ClientsNewDTO;
 import com.springboot.nelioalves.entities.AddressEntity;
 import com.springboot.nelioalves.entities.CityEntity;
 import com.springboot.nelioalves.entities.ClientEntity;
+import com.springboot.nelioalves.entities.enums.ProfileEnum;
 import com.springboot.nelioalves.entities.enums.TypeClientEnum;
+import com.springboot.nelioalves.exceptions.ServiceAuthorizationException;
 import com.springboot.nelioalves.exceptions.ServiceDataIntegrityViolationException;
 import com.springboot.nelioalves.exceptions.ServiceIllegalArgumentException;
 import com.springboot.nelioalves.exceptions.ServiceObjectNotFoundException;
 import com.springboot.nelioalves.repositories.AddressesRepository;
 import com.springboot.nelioalves.repositories.ClientsRepository;
+import com.springboot.nelioalves.security.UserServiceSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,6 +41,15 @@ public class ClientsService {
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public ClientEntity findById(Integer id) {
+
+    UserServiceSecurity userServiceSecurity = UserService.authenticated();
+
+    if (userServiceSecurity == null
+        || !userServiceSecurity.hasHole(ProfileEnum.ADMIN) && !id.equals(userServiceSecurity.getId())) {
+      throw new ServiceAuthorizationException("Access denied");
+
+    }
+
     Optional<ClientEntity> object = repository.findById(id);
     return object.orElseThrow(
         () -> new ServiceObjectNotFoundException(

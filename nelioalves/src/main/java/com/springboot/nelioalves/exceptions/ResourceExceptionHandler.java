@@ -56,6 +56,13 @@ public class ResourceExceptionHandler {
 
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
   }
-  // IllegalStateException
+
+  @ExceptionHandler(ServiceAuthorizationException.class)
+  public ResponseEntity<StandardError> authorizationException(ServiceAuthorizationException ex,
+      HttpServletRequest request) {
+
+    StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), System.currentTimeMillis());
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+  }
 
 }
