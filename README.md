@@ -119,4 +119,26 @@ O Thymeleaf é uma template engine para projetos Java que facilita a criação d
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
+
+<!--
+O AWS SDK para Java simplifica o uso do AWS Services, fornecendo um conjunto de bibliotecas consistentes e familiares para os desenvolvedores de Java. Ele oferece suporte para a consideração do ciclo de vida da API, como gerenciamento de credenciais, novas tentativas, marshaling de dados e serialização.
+-->
+
+<dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk</artifactId>
+    <version>LATEST</version>
+  </dependency>
+
+<!--
+A biblioteca Apache Commons IO contém classes de utilitários, implementações de fluxo, filtros de arquivos, comparadores de arquivos, classes de transformação endian e muito mais.
+O Apache Commons IO é uma biblioteca de utilitários para auxiliar no desenvolvimento da funcionalidade de IO
+
+ -->
+ <dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>LATEST</version>
+</dependency>
+
 ```
