@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import com.springboot.nelioalves.entities.ClientEntity;
 import com.springboot.nelioalves.entities.PurchaseEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,22 @@ public abstract class AbstractEmailService implements EmailsService {
     mimeMessageHelper.setSentDate(new Date(System.currentTimeMillis()));
     mimeMessageHelper.setText(htmlFromTemplatePurchase(object), true);
     return mimeMessage;
+  }
+
+  @Override
+  public void SendNewPasswordEmail(ClientEntity client, String newPassword) {
+    SimpleMailMessage message = prepareNewPasswordEmail(client, newPassword);
+    sendEmail(message);
+  }
+
+  protected SimpleMailMessage prepareNewPasswordEmail(ClientEntity client, String newPassword) {
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(client.getEmail());
+    message.setFrom(sender);
+    message.setSubject("New password request");
+    message.setSentDate(new Date(System.currentTimeMillis()));
+    message.setText("New Password: " + newPassword);
+    return message;
   }
 
 }
