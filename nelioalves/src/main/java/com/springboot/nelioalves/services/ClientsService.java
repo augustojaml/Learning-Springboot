@@ -22,6 +22,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +33,9 @@ public class ClientsService {
 
   @Autowired
   private AddressesRepository addressesRepository;
+
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public ClientEntity findById(Integer id) {
     Optional<ClientEntity> object = repository.findById(id);
@@ -77,7 +81,7 @@ public class ClientsService {
   }
 
   public ClientEntity fromDTO(ClientsDTO objectDTO) {
-    return new ClientEntity(objectDTO.getId(), objectDTO.getName(), objectDTO.getEmail(), null, null);
+    return new ClientEntity(objectDTO.getId(), objectDTO.getName(), objectDTO.getEmail(), null, null, null);
   }
 
   private void updateDate(ClientEntity newObject, ClientEntity object) {
@@ -87,7 +91,8 @@ public class ClientsService {
 
   public ClientEntity fromDTO(@Valid ClientsNewDTO objectDTO) {
     ClientEntity clientEntity = new ClientEntity(null, objectDTO.getName(), objectDTO.getEmail(),
-        objectDTO.getCpfOrCnpj(), TypeClientEnum.toEnum(objectDTO.getType()));
+        objectDTO.getCpfOrCnpj(), TypeClientEnum.toEnum(objectDTO.getType()),
+        bCryptPasswordEncoder.encode(objectDTO.getPassword()));
 
     CityEntity cityEntity = new CityEntity(objectDTO.getType(), null, null);
 

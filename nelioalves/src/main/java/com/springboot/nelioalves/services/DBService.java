@@ -28,6 +28,7 @@ import com.springboot.nelioalves.repositories.PurchasesRepository;
 import com.springboot.nelioalves.repositories.StatesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -59,6 +60,9 @@ public class DBService {
 
   @Autowired
   private ItemPurchaseRepository itemPurchaseRepository;
+
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public void instantiateDatabase() throws ParseException {
     // CATEGORIES
@@ -130,7 +134,7 @@ public class DBService {
 
     // CLIENTS
     ClientEntity cli1 = new ClientEntity(null, "Maria Sila", "brawziin@gmail.com", "11111111111",
-        TypeClientEnum.NATURALPERSON);
+        TypeClientEnum.NATURALPERSON, bCryptPasswordEncoder.encode("123"));
 
     // ADD PHONE CLIENT
     cli1.getPhones().addAll(Arrays.asList("11110000", "22220000"));

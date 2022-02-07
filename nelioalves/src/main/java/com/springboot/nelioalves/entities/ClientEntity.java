@@ -53,6 +53,11 @@ public class ClientEntity implements Serializable {
 
   @Getter
   @Setter
+  @JsonIgnore
+  private String password;
+
+  @Getter
+  @Setter
   @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
   private List<AddressEntity> addresses = new ArrayList<>();
 
@@ -68,12 +73,13 @@ public class ClientEntity implements Serializable {
   @OneToMany(mappedBy = "client")
   private List<PurchaseEntity> purchases = new ArrayList<>();
 
-  public ClientEntity(Integer id, String name, String email, String CpfOrCnpj, TypeClientEnum type) {
+  public ClientEntity(Integer id, String name, String email, String CpfOrCnpj, TypeClientEnum type, String password) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.CpfOrCnpj = CpfOrCnpj;
     this.type = (type == null) ? null : type.getCode();
+    this.password = password;
   }
 
   public TypeClientEnum getType() {
