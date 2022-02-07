@@ -1,4 +1,4 @@
-package com.springboot.nelioalves.resources.utils;
+package com.springboot.nelioalves.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

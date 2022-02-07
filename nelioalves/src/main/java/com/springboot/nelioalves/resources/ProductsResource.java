@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.springboot.nelioalves.dto.ProductsDTO;
 import com.springboot.nelioalves.entities.ProductEntity;
-import com.springboot.nelioalves.resources.utils.URL;
 import com.springboot.nelioalves.services.ProductsService;
+import com.springboot.nelioalves.utils.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
