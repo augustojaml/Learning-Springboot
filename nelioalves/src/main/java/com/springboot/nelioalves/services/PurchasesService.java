@@ -3,16 +3,22 @@ package com.springboot.nelioalves.services;
 import java.util.Date;
 import java.util.Optional;
 
+import com.springboot.nelioalves.entities.ClientEntity;
 import com.springboot.nelioalves.entities.ItemPurchaseEntity;
 import com.springboot.nelioalves.entities.PaymentTicketEntity;
 import com.springboot.nelioalves.entities.PurchaseEntity;
 import com.springboot.nelioalves.entities.enums.StatePaymentEnum;
+import com.springboot.nelioalves.exceptions.ServiceAuthorizationException;
 import com.springboot.nelioalves.exceptions.ServiceObjectNotFoundException;
 import com.springboot.nelioalves.repositories.ItemPurchaseRepository;
 import com.springboot.nelioalves.repositories.PaymentsRepository;
 import com.springboot.nelioalves.repositories.PurchasesRepository;
+import com.springboot.nelioalves.security.UserServiceSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -70,5 +76,16 @@ public class PurchasesService {
     itemPurchaseRepository.saveAll(object.getItems());
     emailsService.sendOrderConfirmationHtmlEmail(object);
     return object;
+  }
+
+  public Page<PurchaseEntity> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    UserServiceSecurity userServiceSecurity = UserService.authenticated();
+    if (userServiceSecurity == null) {
+      throw new ServiceAuthorizationException("Access denied");
+    }
+
+    PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+    ClientEntity clientEntity = clientsService.findById(userServiceSecurity.getId());
+    return repository.findByClient(clientEntity, pageRequest);
   }
 }
