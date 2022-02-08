@@ -57,19 +57,43 @@ public class ClientsService {
   private Integer imageSize;
 
   public ClientEntity findById(Integer id) {
-
     UserServiceSecurity userServiceSecurity = UserService.authenticated();
-
     if (userServiceSecurity == null
         || !userServiceSecurity.hasHole(ProfileEnum.ADMIN) && !id.equals(userServiceSecurity.getId())) {
       throw new ServiceAuthorizationException("Access denied");
 
     }
-
     Optional<ClientEntity> object = repository.findById(id);
     return object.orElseThrow(
         () -> new ServiceObjectNotFoundException(
             "Object with identifier " + id + " | Class: " + ClientEntity.class.getName()));
+  }
+
+  public ClientEntity findByEmail(String email) {
+    UserServiceSecurity userServiceSecurity = UserService.authenticated();
+    if (userServiceSecurity == null
+        || !userServiceSecurity.hasHole(ProfileEnum.ADMIN) && !email.equals(userServiceSecurity.getUsername())) {
+      throw new ServiceAuthorizationException("Access denied");
+    }
+    ClientEntity object = repository.findByEmail(email);
+    if (object == null) {
+      throw new ServiceObjectNotFoundException(
+          "Object with identifier " + userServiceSecurity.getId() + " | Class: " + ClientEntity.class.getName());
+    }
+    return object;
+  }
+
+  public List<ClientEntity> findAll() {
+    return repository.findAll();
+  }
+
+  public Page<ClientEntity> findPerPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    try {
+      PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+      return repository.findAll(pageRequest);
+    } catch (Exception ex) {
+      throw new ServiceIllegalArgumentException("Invalid search parameters");
+    }
   }
 
   public ClientEntity insert(ClientEntity object) {
@@ -93,19 +117,6 @@ public class ClientsService {
       throw new ServiceDataIntegrityViolationException("Cannot delete related entities");
     }
 
-  }
-
-  public List<ClientEntity> findAll() {
-    return repository.findAll();
-  }
-
-  public Page<ClientEntity> findPerPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-    try {
-      PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-      return repository.findAll(pageRequest);
-    } catch (Exception ex) {
-      throw new ServiceIllegalArgumentException("Invalid search parameters");
-    }
   }
 
   public ClientEntity fromDTO(ClientsDTO objectDTO) {
