@@ -1,5 +1,6 @@
 package com.springboot.nelioalves.services;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import com.springboot.nelioalves.repositories.ClientsRepository;
 import com.springboot.nelioalves.security.UserServiceSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,6 +46,12 @@ public class ClientsService {
 
   @Autowired
   private S3Service s3Service;
+
+  @Autowired
+  private ImageService imageService;
+
+  @Value("${img.prefix.client.profile}")
+  private String clientPrefix;
 
   public ClientEntity findById(Integer id) {
 
@@ -135,10 +143,10 @@ public class ClientsService {
       throw new ServiceAuthorizationException("Access Denied");
     }
 
-    URI uri = s3Service.uploadFile(multipartFile);
-    ClientEntity clientEntity = this.findById(userServiceSecurity.getId());
-    clientEntity.setImageUrl(uri.toString());
-    repository.save(clientEntity);
-    return uri;
+    BufferedImage bufferedImage = imageService.getJpgImageFromFile(multipartFile);
+    String fileName = clientPrefix + userServiceSecurity.getId() + ".jpg";
+
+    return s3Service.uploadFile(imageService.getInputStream(bufferedImage, "jpg"), fileName, "image");
+
   }
 }

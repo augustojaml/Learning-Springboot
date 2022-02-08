@@ -78,9 +78,9 @@ public class ClientEntity implements Serializable {
   @OneToMany(mappedBy = "client")
   private List<PurchaseEntity> purchases = new ArrayList<>();
 
-  @Getter
-  @Setter
-  private String imageUrl;
+  // @Getter
+  // @Setter
+  // private String imageUrl;
 
   public ClientEntity() {
     this.addProfile(ProfileEnum.CLIENT);
