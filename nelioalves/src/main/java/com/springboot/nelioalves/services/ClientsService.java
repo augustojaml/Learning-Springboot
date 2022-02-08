@@ -129,6 +129,16 @@ public class ClientsService {
   }
 
   public URI uploadProfilePicture(MultipartFile multipartFile) {
-    return s3Service.uploadFile(multipartFile);
+
+    UserServiceSecurity userServiceSecurity = UserService.authenticated();
+    if (userServiceSecurity == null) {
+      throw new ServiceAuthorizationException("Access Denied");
+    }
+
+    URI uri = s3Service.uploadFile(multipartFile);
+    ClientEntity clientEntity = this.findById(userServiceSecurity.getId());
+    clientEntity.setImageUrl(uri.toString());
+    repository.save(clientEntity);
+    return uri;
   }
 }
