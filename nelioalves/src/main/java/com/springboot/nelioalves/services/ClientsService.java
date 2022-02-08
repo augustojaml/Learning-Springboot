@@ -53,6 +53,9 @@ public class ClientsService {
   @Value("${img.prefix.client.profile}")
   private String clientPrefix;
 
+  @Value("${img.profile.size}")
+  private Integer imageSize;
+
   public ClientEntity findById(Integer id) {
 
     UserServiceSecurity userServiceSecurity = UserService.authenticated();
@@ -143,10 +146,12 @@ public class ClientsService {
       throw new ServiceAuthorizationException("Access Denied");
     }
 
-    BufferedImage bufferedImage = imageService.getJpgImageFromFile(multipartFile);
+    BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
     String fileName = clientPrefix + userServiceSecurity.getId() + ".jpg";
+    jpgImage = imageService.cropSquare(jpgImage);
+    jpgImage = imageService.resize(jpgImage, imageSize);
 
-    return s3Service.uploadFile(imageService.getInputStream(bufferedImage, "jpg"), fileName, "image");
+    return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 
   }
 }

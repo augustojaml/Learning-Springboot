@@ -141,4 +141,14 @@ O Apache Commons IO é uma biblioteca de utilitários para auxiliar no desenvolv
     <version>LATEST</version>
 </dependency>
 
+
+<!--
+imgscalr é uma biblioteca de manipulação e escala de imagem de práticas recomendadas simples e eficiente implementada em Java puro.
+ -->
+
+<dependency>
+  <groupId>org.imgscalr</groupId>
+  <artifactId>imgscalr-lib</artifactId>
+  <version>4.2</version>
+</dependency>
 ```
