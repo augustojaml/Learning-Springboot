@@ -87,6 +87,45 @@ public class DBService {
     ProductEntity p9 = new ProductEntity(null, "Abajur", 100.00);
     ProductEntity p10 = new ProductEntity(null, "Pendente", 180.00);
     ProductEntity p11 = new ProductEntity(null, "Shampoo", 90.00);
+    ProductEntity p12 = new ProductEntity(null, "Produto 12", 10.00);
+    ProductEntity p13 = new ProductEntity(null, "Produto 13", 10.00);
+    ProductEntity p14 = new ProductEntity(null, "Produto 14", 10.00);
+    ProductEntity p15 = new ProductEntity(null, "Produto 15", 10.00);
+    ProductEntity p16 = new ProductEntity(null, "Produto 16", 10.00);
+    ProductEntity p17 = new ProductEntity(null, "Produto 17", 10.00);
+    ProductEntity p18 = new ProductEntity(null, "Produto 18", 10.00);
+    ProductEntity p19 = new ProductEntity(null, "Produto 19", 10.00);
+    ProductEntity p20 = new ProductEntity(null, "Produto 20", 10.00);
+    ProductEntity p21 = new ProductEntity(null, "Produto 21", 10.00);
+    ProductEntity p22 = new ProductEntity(null, "Produto 22", 10.00);
+    ProductEntity p23 = new ProductEntity(null, "Produto 23", 10.00);
+    ProductEntity p24 = new ProductEntity(null, "Produto 24", 10.00);
+    ProductEntity p25 = new ProductEntity(null, "Produto 25", 10.00);
+    ProductEntity p26 = new ProductEntity(null, "Produto 26", 10.00);
+    ProductEntity p27 = new ProductEntity(null, "Produto 27", 10.00);
+    ProductEntity p28 = new ProductEntity(null, "Produto 28", 10.00);
+    ProductEntity p29 = new ProductEntity(null, "Produto 29", 10.00);
+    ProductEntity p30 = new ProductEntity(null, "Produto 30", 10.00);
+    ProductEntity p31 = new ProductEntity(null, "Produto 31", 10.00);
+    ProductEntity p32 = new ProductEntity(null, "Produto 32", 10.00);
+    ProductEntity p33 = new ProductEntity(null, "Produto 33", 10.00);
+    ProductEntity p34 = new ProductEntity(null, "Produto 34", 10.00);
+    ProductEntity p35 = new ProductEntity(null, "Produto 35", 10.00);
+    ProductEntity p36 = new ProductEntity(null, "Produto 36", 10.00);
+    ProductEntity p37 = new ProductEntity(null, "Produto 37", 10.00);
+    ProductEntity p38 = new ProductEntity(null, "Produto 38", 10.00);
+    ProductEntity p39 = new ProductEntity(null, "Produto 39", 10.00);
+    ProductEntity p40 = new ProductEntity(null, "Produto 40", 10.00);
+    ProductEntity p41 = new ProductEntity(null, "Produto 41", 10.00);
+    ProductEntity p42 = new ProductEntity(null, "Produto 42", 10.00);
+    ProductEntity p43 = new ProductEntity(null, "Produto 43", 10.00);
+    ProductEntity p44 = new ProductEntity(null, "Produto 44", 10.00);
+    ProductEntity p45 = new ProductEntity(null, "Produto 45", 10.00);
+    ProductEntity p46 = new ProductEntity(null, "Produto 46", 10.00);
+    ProductEntity p47 = new ProductEntity(null, "Produto 47", 10.00);
+    ProductEntity p48 = new ProductEntity(null, "Produto 48", 10.00);
+    ProductEntity p49 = new ProductEntity(null, "Produto 49", 10.00);
+    ProductEntity p50 = new ProductEntity(null, "Produto 50", 10.00);
 
     // ADD PRODUCT => CATEGORIES
     cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
@@ -96,6 +135,10 @@ public class DBService {
     cat5.getProducts().addAll(Arrays.asList(p8));
     cat6.getProducts().addAll(Arrays.asList(p9, p10));
     cat7.getProducts().addAll(Arrays.asList(p11));
+
+    cat1.getProducts().addAll(Arrays.asList(p12, p13, p14, p15, p16, p17, p18, p19, p20,
+        p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p34, p35, p36, p37, p38,
+        p39, p40, p41, p42, p43, p44, p45, p46, p47, p48, p49, p50));
 
     // ADD CATEGORY => PRODUCT
     p1.getCategories().addAll(Arrays.asList(cat1, cat4));
@@ -110,10 +153,54 @@ public class DBService {
     p10.getCategories().addAll(Arrays.asList(cat6));
     p11.getCategories().addAll(Arrays.asList(cat7));
 
+    p12.getCategories().add(cat1);
+    p13.getCategories().add(cat1);
+    p14.getCategories().add(cat1);
+    p15.getCategories().add(cat1);
+    p16.getCategories().add(cat1);
+    p17.getCategories().add(cat1);
+    p18.getCategories().add(cat1);
+    p19.getCategories().add(cat1);
+    p20.getCategories().add(cat1);
+    p21.getCategories().add(cat1);
+    p22.getCategories().add(cat1);
+    p23.getCategories().add(cat1);
+    p24.getCategories().add(cat1);
+    p25.getCategories().add(cat1);
+    p26.getCategories().add(cat1);
+    p27.getCategories().add(cat1);
+    p28.getCategories().add(cat1);
+    p29.getCategories().add(cat1);
+    p30.getCategories().add(cat1);
+    p31.getCategories().add(cat1);
+    p32.getCategories().add(cat1);
+    p33.getCategories().add(cat1);
+    p34.getCategories().add(cat1);
+    p35.getCategories().add(cat1);
+    p36.getCategories().add(cat1);
+    p37.getCategories().add(cat1);
+    p38.getCategories().add(cat1);
+    p39.getCategories().add(cat1);
+    p40.getCategories().add(cat1);
+    p41.getCategories().add(cat1);
+    p42.getCategories().add(cat1);
+    p43.getCategories().add(cat1);
+    p44.getCategories().add(cat1);
+    p45.getCategories().add(cat1);
+    p46.getCategories().add(cat1);
+    p47.getCategories().add(cat1);
+    p48.getCategories().add(cat1);
+    p49.getCategories().add(cat1);
+    p50.getCategories().add(cat1);
+
     // INSERT CATEGORIES
     categoriesRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
     // INSERT CATEGORIES
     productsRepository.saveAll(Arrays.asList(p1, p2, p3, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+
+    productsRepository.saveAll(Arrays.asList(p12, p13, p14, p15, p16, p17, p18, p19, p20,
+        p21, p22, p23, p24, p25, p26, p27, p28, p29, p30, p31, p32, p34, p35, p36, p37, p38,
+        p39, p40, p41, p42, p43, p44, p45, p46, p47, p48, p49, p50));
 
     // INSERT STATE
     StateEntity est1 = new StateEntity(null, "Minas Gerais");

@@ -80,10 +80,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
   }
 
+  // @Bean
+  // CorsConfigurationSource configurationSource() {
+  // final UrlBasedCorsConfigurationSource source = new
+  // UrlBasedCorsConfigurationSource();
+  // source.registerCorsConfiguration("/**", new
+  // CorsConfiguration().applyPermitDefaultValues());
+  // return source;
+  // }
+
   @Bean
   CorsConfigurationSource configurationSource() {
+    CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+    corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "UPDATE", "DELETE", "OPTIONS"));
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    source.registerCorsConfiguration("/**", corsConfiguration);
     return source;
   }
 
