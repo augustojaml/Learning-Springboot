@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "categoryId": "curl --request GET --url http://localhost:8080/categories/1",
-    "mysqldump": "mysqldump -u root -p -h 0.0.0.0 db_nelioalves > db_nelioalves.sql"
+    "mysqldump": "mysqldump -u root -p -h 0.0.0.0 db_nelioalves > db_nelioalves.sql",
+    "java": "java -jar ./app-0.0.1-SNAPSHOT.jar --spring.datasource.username=root --spring.datasource.password=root"
   },
   "dependencies": {
     "nps": "^5.10.0"
