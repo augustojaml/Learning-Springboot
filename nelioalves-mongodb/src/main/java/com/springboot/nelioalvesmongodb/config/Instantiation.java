@@ -7,6 +7,7 @@ import java.util.TimeZone;
 import com.springboot.nelioalvesmongodb.domain.Post;
 import com.springboot.nelioalvesmongodb.domain.User;
 import com.springboot.nelioalvesmongodb.dto.AuthorDTO;
+import com.springboot.nelioalvesmongodb.dto.CommentDTO;
 import com.springboot.nelioalvesmongodb.repositories.PostsRepository;
 import com.springboot.nelioalvesmongodb.repositories.UsersRepository;
 
@@ -41,16 +42,26 @@ public class Instantiation implements CommandLineRunner {
     usersRepository.saveAll(Arrays.asList(maria, alex, bob));
 
     // CREATE POSTS
-    Post post1 = new Post(null, simpleDateFormat.parse("12/02/2022"), "Partiu viagem",
+    Post post01 = new Post(null, simpleDateFormat.parse("12/02/2022"), "Partiu viagem",
         "Vou viajar para São Paulo, Abraços!", new AuthorDTO(maria));
-    Post post2 = new Post(null, simpleDateFormat.parse("13/02/2022"), "Bom dia",
+    Post post02 = new Post(null, simpleDateFormat.parse("13/02/2022"), "Bom dia",
         "Acordei feliz hoje", new AuthorDTO(maria));
 
+    // CREATE COMMENTS
+    CommentDTO comment01 = new CommentDTO("Boa Viagem mano!", simpleDateFormat.parse("14/02/2022"),
+        new AuthorDTO(alex));
+    CommentDTO comment02 = new CommentDTO("Aproveite", simpleDateFormat.parse("15/02/2022"), new AuthorDTO(bob));
+    CommentDTO comment03 = new CommentDTO("Aproveite", simpleDateFormat.parse("16/02/2022"), new AuthorDTO(alex));
+
+    // ADD COMMENTS FROM POST
+    post01.getComments().addAll(Arrays.asList(comment01, comment02));
+    post02.getComments().addAll(Arrays.asList(comment03));
+
     // SAVE POSTS
-    postsRepository.saveAll(Arrays.asList(post1, post2));
+    postsRepository.saveAll(Arrays.asList(post01, post02));
 
     // ADD POST (MARIA)
-    maria.getPosts().addAll(Arrays.asList(post1, post2));
+    maria.getPosts().addAll(Arrays.asList(post01, post02));
 
     // SAVE POST MARIA
     usersRepository.save(maria);
