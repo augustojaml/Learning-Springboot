@@ -28,7 +28,24 @@ public class UsersService {
     return usersRepository.insert(user);
   }
 
+  public void delete(String id) {
+    this.findById(id);
+    usersRepository.deleteById(id);
+  }
+
+  public User update(User user) {
+    User findUser = this.findById(user.getId());
+    this.updateData(findUser, user);
+    return usersRepository.save(findUser);
+  }
+
+  private void updateData(User findUser, User user) {
+    findUser.setName(user.getName());
+    findUser.setEmail(user.getEmail());
+  }
+
   public User fromDTO(UserDTO userDTO) {
     return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
   }
+
 }
