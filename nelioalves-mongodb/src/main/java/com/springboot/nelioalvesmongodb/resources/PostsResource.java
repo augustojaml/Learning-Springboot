@@ -1,5 +1,6 @@
 package com.springboot.nelioalvesmongodb.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import com.springboot.nelioalvesmongodb.domain.Post;
@@ -30,9 +31,22 @@ public class PostsResource {
   @RequestMapping(value = "/title-search", method = RequestMethod.GET)
   public ResponseEntity<List<Post>> findByTitleContaining(
       @RequestParam(value = "text", defaultValue = "") String text) {
-    text = URL.decodeParams(text);
+    text = URL.decodeParam(text);
 
     List<Post> posts = this.postsService.findByTitleContaining(text);
+    return ResponseEntity.ok().body(posts);
+  }
+
+  @RequestMapping(value = "/full-search", method = RequestMethod.GET)
+  public ResponseEntity<List<Post>> fullSearch(
+      @RequestParam(value = "text", defaultValue = "") String text,
+      @RequestParam(value = "minDate", defaultValue = "") String minDate,
+      @RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+    text = URL.decodeParam(text);
+    Date min = URL.convertDate(minDate, new Date(0L));
+    Date max = URL.convertDate(maxDate, new Date());
+
+    List<Post> posts = this.postsService.fullSearch(text, min, max);
     return ResponseEntity.ok().body(posts);
   }
 

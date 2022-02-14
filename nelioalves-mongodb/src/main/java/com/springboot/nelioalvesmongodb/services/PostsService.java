@@ -1,5 +1,6 @@
 package com.springboot.nelioalvesmongodb.services;
 
+import java.util.Date;
 import java.util.List;
 
 import com.springboot.nelioalvesmongodb.domain.Post;
@@ -22,4 +23,10 @@ public class PostsService {
   public List<Post> findByTitleContaining(String text) {
     return postsRepository.searchTitle(text);
   }
+
+  public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+    maxDate = new Date(maxDate.getTime() + 24 + 60 + 60 * 1000);
+    return postsRepository.fullSearch(text, minDate, maxDate);
+  }
+
 }
