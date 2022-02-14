@@ -1,5 +1,7 @@
 package com.springboot.nelioalvesmongodb.services;
 
+import java.util.List;
+
 import com.springboot.nelioalvesmongodb.domain.Post;
 import com.springboot.nelioalvesmongodb.repositories.PostsRepository;
 import com.springboot.nelioalvesmongodb.services.exception.ObjectNotFoundException;
@@ -17,4 +19,7 @@ public class PostsService {
     return postsRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found"));
   }
 
+  public List<Post> findByTitleContaining(String text) {
+    return postsRepository.findByTitleContainingIgnoreCase(text);
+  }
 }
