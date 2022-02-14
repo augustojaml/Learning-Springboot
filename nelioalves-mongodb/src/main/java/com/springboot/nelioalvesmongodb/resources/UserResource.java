@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.springboot.nelioalvesmongodb.domain.Post;
 import com.springboot.nelioalvesmongodb.domain.User;
 import com.springboot.nelioalvesmongodb.dto.UserDTO;
 import com.springboot.nelioalvesmongodb.services.UsersService;
@@ -58,5 +59,11 @@ public class UserResource {
     user.setId(id);
     user = this.usersService.update(user);
     return ResponseEntity.noContent().build();
+  }
+
+  @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+  public ResponseEntity<List<Post>> findPostByUser(@PathVariable String id) {
+    User user = this.usersService.findById(id);
+    return ResponseEntity.ok().body(user.getPosts());
   }
 }
