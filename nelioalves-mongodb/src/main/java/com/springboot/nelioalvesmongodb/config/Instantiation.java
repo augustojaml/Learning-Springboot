@@ -6,6 +6,7 @@ import java.util.TimeZone;
 
 import com.springboot.nelioalvesmongodb.domain.Post;
 import com.springboot.nelioalvesmongodb.domain.User;
+import com.springboot.nelioalvesmongodb.dto.AuthorDTO;
 import com.springboot.nelioalvesmongodb.repositories.PostsRepository;
 import com.springboot.nelioalvesmongodb.repositories.UsersRepository;
 
@@ -36,14 +37,16 @@ public class Instantiation implements CommandLineRunner {
     User alex = new User(null, "Alex Green", "alex@gmail.com");
     User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
+    // SAVE USERS
+    usersRepository.saveAll(Arrays.asList(maria, alex, bob));
+
     // CREATE POSTS
     Post post1 = new Post(null, simpleDateFormat.parse("12/02/2022"), "Partiu viagem",
-        "Vou viajar para São Paulo, Abraços!", maria);
+        "Vou viajar para São Paulo, Abraços!", new AuthorDTO(maria));
     Post post2 = new Post(null, simpleDateFormat.parse("13/02/2022"), "Bom dia",
-        "Acordei feliz hoje", maria);
+        "Acordei feliz hoje", new AuthorDTO(maria));
 
-    // SAVE USERS AND POSTS
-    usersRepository.saveAll(Arrays.asList(maria, alex, bob));
+    // SAVE POSTS
     postsRepository.saveAll(Arrays.asList(post1, post2));
 
   }
