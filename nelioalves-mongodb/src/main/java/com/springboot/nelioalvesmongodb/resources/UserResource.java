@@ -1,8 +1,11 @@
 package com.springboot.nelioalvesmongodb.resources;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.springboot.nelioalvesmongodb.domain.User;
+import com.springboot.nelioalvesmongodb.dto.UserDTO;
 import com.springboot.nelioalvesmongodb.services.UsersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,9 @@ public class UserResource {
   UsersService usersService;
 
   @RequestMapping(method = RequestMethod.GET)
-  public ResponseEntity<List<User>> findAll() {
+  public ResponseEntity<List<UserDTO>> findAll() {
     List<User> users = this.usersService.findAll();
-    return ResponseEntity.ok().body(users);
+    List<UserDTO> userDTO = users.stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
+    return ResponseEntity.ok().body(userDTO);
   }
 }
